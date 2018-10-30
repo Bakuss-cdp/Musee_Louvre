@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Musée Du Louvre{% endblock %}</title>
+
+  {% block stylesheets %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet">
+
+  {% endblock %}
+</head>
+
+<body>
+    <div class="container">
+	
+	    <div class="row jumbotron">
+		    <div class="col-xs-6 col-lg-offset-1 col-lg-3">
+			    <a href="{{ path('musee_louvre_home') }}"><img class="img-rounded" alt="Musée Louvre " src="{{ asset('images/logo_louvre.jpg')}}"/></a>
+			</div>
+			
+			<div id="header" class=" text-center col-sm-8">
+			  <h1> <a href="{{ path('musee_louvre_home') }}"><h1>Musée du Louvre</h1></a> </h1>
+			  <p>
+			  Le musée du Louvre, inauguré en 1793, une patrimoine mondiale, le plus grand musée d'art et d'antiquités au monde
+			  </p>
+			</div>
+        </div>
+ <div class="row">
+		<nav class="navbar  navbar-inverse">
+			<div class="row">
+			    <div class="navbar-header">
+					  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>                        
+					  </button>
+					  <a class="navbar-brand" href="#">  Le Louvre</a>
+				</div> 
+				<div class="collapse navbar-collapse" id="myNavbar">
+						<ul class="nav navbar-nav">
+						  <li class="active"><a href="{{ path('musee_louvre_home') }}">Home</a> </li>
+						  <li><a href="{{ path('musee_louvre_ticket') }}">Billeterie</a> </li>
+						  <li><a href="{{ path('musee_louvre_contact') }}">Nous Contacter</a> </li>
+						</ul>
+						<!-- <ul class="nav navbar-nav navbar-center">
+						  <li><a href="#"><span class="glyphicon glyphicon-user"></span> S'Inscrire </a></li>
+						  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Se Connecter </a></li>
+						</ul> -->
+				</div>	
+			</div>	
+	    </nav>
+  </div>
+	    
+<div class="row">
+    <div id="aside" class="col-sm-3">
+       
+        <h3> Informations sur les tickets  </h3>
+            <div class="panel panel-default " style="padding: 0;">
+                <div class="panel-heading">
+                        <h3 class="panel-title">Tarifs :</h3>
+                </div>
+					 
+                <ul class="list-group">
+                    <li class="list-group-item">Tarifs normal (à partir de 12ans)   : 16€</li>
+                    <li class="list-group-item">Tarifs senoir (à partir de 60ans)   : 12€</li>
+                    <li class="list-group-item">Tarifs enfant (de 4 avant 12ans) : 8€</li>
+                    <li class="list-group-item">Tarifs réduit (Carte: Etudiant, Personnel, Culture, Militaire)    : 10€</li>
+                </ul>
+				
+            </div>
+			
+            <div class="panel panel-default" style="padding: 0;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Horaires :</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">Lundi    : 09h00-19h00</li>
+                    <li class="list-group-item"><strong>Mardi    : Fermé</strong></li>
+                    <li class="list-group-item">Mercredi : 09h00-21h00</li>
+                    <li class="list-group-item">Jeudi    : 09h00-19h00</li>
+                    <li class="list-group-item">Vendredi : 09h00-21h00</li>
+                    <li class="list-group-item">Samedi   : 09h00-21h00</li>
+                    <li class="list-group-item"><strong>Dimanche : Fermé</strong></li>
+                </ul>
+            </div>
+                   		
+				
+      </div>
+	  
+	  
+      <div id="content" class="col-sm-9">
+			{% block body %}
+			
+			{% endblock %}
+      </div>
+	  
+	  
+	  
+</div>
+
+    <hr>
+
+    <footer style="border:1px solid purple">
+	
+      <p style="text-align:center"><b>Tout droit reservé © {{ 'now'|date('Y') }} Misée du lovre</b></p>
+	  
+				<div class="col-xs-12 col-lg-offset-1 col-lg-10">
+					<div class="row">
+						<div class="col-xs-4">
+							<b>Plan du site</b>
+						</div>
+						<div class="col-xs-4">
+							<b>Mention Légale</b>
+						</div>
+						<div class="col-xs-4">
+							<b>Conatcter le Musée du Louvre</b>
+						</div>
+					</div>
+
+				</div>
+	
+    </footer>
+   </div><!-- Fin de container -->
+
+  {% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- <script src="web/js/louvre_script.js"></script>--> 
+	<!--  <script src="{{ asset('js/louvre_script.js')}}"></script> -->
+    <script src="https://js.stripe.com/v3/"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    <script>
+        $.validate({
+            modules : 'security, date',
+            lang : 'fr'
+        });
+    </script>
+  {% endblock %}
+
+</body>
+</html>

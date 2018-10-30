@@ -1,0 +1,28 @@
+services:
+#    musee_louvre.example:
+#        class: MUSEE\LouvreBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+   musee_louvre.bills:
+        class: MUSEE\LouvreBundle\Utilitaires\LouvreBills
+        arguments: ["@doctrine.orm.entity_manager"]
+   
+   musee_louvre.mail:
+           class: MUSEE\LouvreBundle\Utilitaires\LouvreMail
+           arguments:
+                    - "@mailer"
+                    - "@templating"
+
+   musee_louvre.transaction:
+           class: MUSEE\LouvreBundle\Utilitaires\LouvreTransaction
+           arguments:
+                    - "%stripe_key%"
+                    - "@session"					
+                    - "@doctrine.orm.entity_manager"
+                    
+   musee_louvre.manager:
+           class: MUSEE\LouvreBundle\Utilitaires\OrdersManager
+           arguments:
+                    - "@doctrine.orm.entity_manager"
+                    - "@session"
+   

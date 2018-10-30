@@ -1,0 +1,41 @@
+{# src/MUSEE/LouvreBundle/Resources/views/Mlouvre/recap.html.twig #}
+
+
+{% extends "MUSEELouvreBundle::template.html.twig" %}
+
+{% block title %}
+  Fin de reservation - {{ parent() }}
+{% endblock %}
+
+{% block section %}
+
+  
+<article class="col-sm-9" id="ticket_formulaire">
+
+	<h2>Fin de reservation de commande</h2>
+	
+				{% for flashMessage in app.session.flashbag.get('success') %}
+					<div class="alert alert-success">
+						{{ flashMessage }}
+					</div>
+				{% endfor %}
+				
+				{% for flashMessage in app.session.flashbag.get('error') %}
+					<div class="alert alert-danger">
+						{{ flashMessage }}
+					</div>
+				{% endfor %}
+		  
+				{% if valider is defined %}
+					<h3>Votre Commande à bien été validée !</h3>
+					<p>Merci de votre passage au musée ! Vous allez recevoir par mail la confirmation de votre commande.</p>
+				{% endif %}
+			
+				{% if vider is defined %}
+					<h4>Vous n'avez plus de commande en cour...</h4>
+					<p>Votre visite au Musée du Louvre nous enchante!</p>
+				{% endif %}
+   
+</article>   
+
+{% endblock %}

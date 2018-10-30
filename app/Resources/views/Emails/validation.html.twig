@@ -1,0 +1,48 @@
+{# app/Resources/views/Emails/validation.html.twig #}
+
+
+<div class="col-xs-6 col-lg-offset-1 col-lg-3">
+		<a href="{{ path('musee_louvre_home') }}">
+				<img class="img-rounded" alt="Musée Louvre " src="{{ asset('images/logo_louvre.jpg')}}"/>
+		</a>
+</div>
+
+<p>
+<h3> Le Louvre </h3> <br>
+<b>Billetterie du Museée du Louvre </b><br>
+Adresse : Rue de Rivoli, 75001 Paris <br>
+Email : admin@mussedulouvre.com <br>
+Téléphone : 01 02 03 04 05  <br>
+</p>
+
+<h4>Merci d'avoir commandé sur notre site</h4>
+
+{{ " Recap de votre commande en  :"|trans }}
+
+<p>Votre Commande {{ orders.condito }} du {{ orders.orderDate|date('d/m/Y') }}
+<br/>
+<strong>Date de visite : </strong> {{ orders.visitDate | date('d/m/Y')}} <br>
+Au nom de :
+{% for ticket in orders.ticket %}
+{{ ticket.name }}
+{% endfor %}
+<br/>
+{{ orders.email }}
+<br/>
+
+{% if orders.typeReservation !='0' %}
+    {{ "Billet(s) valable(s) : toute la journée"|trans }}
+{% else %}
+    {{ "Billet(s) valable(s) : Démi journée"|trans }}
+{% endif %}
+
+
+<p>Retrouverez le(s) billet(s) ci-après:</p>
+
+{% for ticket in orders.ticket %}
+    <p><span class="ticket-number">Ticket {{ loop.index }} :</span> {{ ticket.name }}  <span>{{ price['ticket' ~ loop.index]  }} €</span></p>
+{% endfor %}
+<br/>
+<div class="panel-heading">
+				<h3 class="panel-title list-group-item">Prix total : <span class="badge">{{ price.total }} €</span></h3>
+</div>

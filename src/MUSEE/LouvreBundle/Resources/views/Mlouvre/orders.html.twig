@@ -1,0 +1,92 @@
+{# src/MUSEE/LouvreBundle/Resources/views/Mlouvre/orders.html.twig #}
+
+
+{% extends "MUSEELouvreBundle::template.html.twig" %}
+
+{% block title %}
+
+  Commande - {{ parent() }}
+  
+{% endblock %}
+
+{% block section %}
+
+  <h2>Visualisez votre commande et passez au payement</h2>
+
+<div class="row">
+
+	
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+	
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+
+	<div class="col-sm-9">
+
+			<div class="panel-heading">
+				<h3 class="panel-title">Liste des billets commandés</h3>
+			</div>
+
+			<ul class="list-group">
+			
+			   <li class="list-group-item"><span class="ticket-number">Votre date de Visite choisie: {{ orders.visitDate|date('d/m/Y') }} </li>
+            
+			</ul>
+			
+			<ul class="list-group">
+				{% for ticket in orders.ticket %}
+					<li class="list-group-item"><span class="ticket-number">Ticket {{ loop.index }} :</span> {{ ticket.name }}   <span class="badge">{{ price['ticket' ~ loop.index]  }} €</span></li>
+				{% endfor %}
+			</ul>
+			
+			<div class="panel-heading">
+				<h3 class="panel-title list-group-item">Prix total : <span class="badge">{{ price.total }} €</span></h3>
+			</div>
+			
+			<br/> <hr/> <br/><br/>
+			
+	</div>
+	
+</div>
+   
+<div class="row">
+	
+         <div class="article" style="width:92%; margin:auto; padding:20px; border:2px solid purple;">
+
+				  <h3> Paiement Sécurisé de votre commande</h3>
+			
+					<form action="{{ path('musee_louvre_payment') }}" method="POST">
+					  <script
+						src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+						data-key="pk_test_vjKQwd97apoZdsm45zn5o7Mj"
+						data-amount="{{ price.total }}00"
+						data-name="Musée du Louvre"
+						data-description="{% for ticket in orders.ticket %}{% if loop.last %}{{ loop.index }}{% endif %} {% endfor %} billets pour {{ price.total }}.00€"
+						data-locale="auto"
+						data-email="{{ orders.email }}"
+						data-label="Passer au Paiement"
+						data-currency="eur">
+					  </script>
+					</form>
+					
+		</div>
+		
+	</div>	
+	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,108 @@
+{# src/MUSEE/LouvreBundle/Resources/views/Mlouvre/index.html.twig #}
+
+
+{% extends "MUSEELouvreBundle::template.html.twig" %}
+
+{% block title %}
+  Reserver vos billet - {{ parent() }}
+{% endblock %}
+
+{% block section %}
+		
+		{% for flashMessage in app.session.flashbag.get('info') %}
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+	
+	
+  <article class="col-sm-9" id="ticket_formulaire">
+	
+					 <h3>Faites votre Commande! </h3>
+
+			<div class="display_form">
+			  
+				  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+											 {{ form_row(form.ticket) }}
+											 
+				  <a href="#" id="add_ticket" class="col-sm-offset-5 btn btn-default">Ajouter un Visiteur</a>
+				  
+                  {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}, 'label': 'Valider la Commander'}) }}
+				  
+				<div class="form-group">
+					<label class="control-label">
+						<i class="fa fa-calendar-check-o"> Selectionnez une date</i>
+					</label>
+
+				<div class="col-sm-4">
+                    <div class="input-group" id="datePicker">
+						{{ form_widget(form.visitDate, {'attr':
+							{'class': 'form-control col-sm-4 text-center' ,'placeholder': 'jj/mm/aaaa',
+							'data-validation': 'date', 'data-validation-format': 'yyyy-mm-dd'}})
+						}}
+					</div>
+					
+					<div class="help-block with-errors">
+						{{ form_errors(form.visitDate) }}
+					</div>
+					
+				</div>
+				
+				  {{ form_end(form) }}		  
+             
+			</div>
+  </article>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+	
+<script type="text/javascript">
+  $(document).ready(function() 
+  {
+    var $container = $('div#orders_ticket');
+    var index = $container.find(':input').length;
+    $('#add_ticket').click(function(e) {
+      addTicket($container);
+      e.preventDefault(); 
+      return false;
+    });
+    if (index == 0) {
+      addTicket($container);
+    } else {
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+    function addTicket($container) 
+	{
+      var template = $container.attr('data-prototype')
+        .replace(/__name__label__/g, 'Ticket n°' + (index+1))
+        .replace(/__name__/g,        index)
+      ;
+      var $prototype = $(template);
+      addDeleteLink($prototype);
+      $container.append($prototype);
+      index++;
+    }
+
+    function addDeleteLink($prototype) 
+	{
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+      $prototype.append($deleteLink);
+      $deleteLink.click(function(e) {
+        $prototype.remove();
+
+        e.preventDefault(); 
+        return false;
+      });
+    }
+  });
+  
+</script>
+<script src="{{ asset('js2/datepicker-fr.js') }}"></script>
+{% endblock %}

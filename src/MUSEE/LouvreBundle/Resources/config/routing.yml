@@ -1,0 +1,29 @@
+musee_louvre_homepage:
+    path:     /
+    defaults: { _controller: MUSEELouvreBundle:Default:index }
+
+
+musee_louvre_home:
+    path:      /home
+    defaults: { _controller: MUSEELouvreBundle:Mlouvre:index }
+
+musee_louvre_ticket:
+    path:      /ticket
+    defaults: { _controller: MUSEELouvreBundle:Mlouvre:ticket }
+
+musee_louvre_orders:
+    path:      /orders
+    defaults: { _controller: MUSEELouvreBundle:Mlouvre:orders }	
+
+musee_louvre_payment:
+    path:      /payment
+    defaults: { _controller: MUSEELouvreBundle:Mlouvre:payment }
+
+musee_louvre_recap:
+    path:      /recap
+    defaults: { _controller: MUSEELouvreBundle:Mlouvre:recap }	
+
+musee_louvre_contact:
+    path:      /contact
+    defaults: { _controller: MUSEELouvreBundle:Mlouvre:contact }	
+   
