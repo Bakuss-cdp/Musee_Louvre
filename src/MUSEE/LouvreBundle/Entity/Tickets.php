@@ -185,7 +185,6 @@ class Tickets
     {
         $this->order = $order;
 
-
         return $this;
     }
 

@@ -72,7 +72,7 @@ class LouvreTransaction
             $this->em->persist($ticket);
         }
 		
-         $this->em->flush();
+        $this->em->flush();
     }
  	
 }

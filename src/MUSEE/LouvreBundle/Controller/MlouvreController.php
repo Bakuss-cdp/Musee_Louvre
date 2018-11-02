@@ -26,7 +26,6 @@ class MlouvreController extends Controller
 		if ($session->has('orders')) 
 		{
             $order = $session->get('orders');
-
 			$content = $this->get('templating')->render('MUSEELouvreBundle:Mlouvre:index.html.twig', array(
 			'orders' => $order ));
 		    return new Response($content);
@@ -40,61 +39,57 @@ class MlouvreController extends Controller
 	
 	public function ticketAction(Request $request)
 	{
-		    $session = $this->get('session');
-			$order = new Orders();
+		$session = $this->get('session');
+		$order = new Orders();
 			
-			$form = $this->get('form.factory')->create(OrdersType::class, $order);			
-			$form->handleRequest($request);
-			       	
-			if ($request->isMethod('POST') && $form->isValid()) 
+		$form = $this->get('form.factory')->create(OrdersType::class, $order);			
+		$form->handleRequest($request);
+			
+		if ($request->isMethod('POST') && $form->isValid()) 
+		{				
+			$manager = $this->container->get('musee_louvre.manager');
+			$ordersManager = $manager->availability($order);
+					
+			if($ordersManager = true)	
 			{
-						
-				$manager = $this->container->get('musee_louvre.manager');
-				$ordersManager = $manager->availability($order);
-				
-				if($ordersManager = true)	
-				  {
-                    return $this->redirectToRoute('musee_louvre_orders');
-                  }
+				return $this->redirectToRoute('musee_louvre_orders');
+            }
               
-                return $this->redirectToRoute('musee_louvre_ticket');
-			}
+            return $this->redirectToRoute('musee_louvre_ticket');
+		}	
 			
-			
-			if ($session->has('orders')) 
-			{
-				$panier = $session->get('orders');
-
-				return $this->render('MUSEELouvreBundle:Mlouvre:ticket.html.twig', array(
-					'form' => $form->createView(),
-					'orders' => $panier,
-				));
-			}
+		if ($session->has('orders')) 
+		{
+			$panier = $session->get('orders');
+			return $this->render('MUSEELouvreBundle:Mlouvre:ticket.html.twig', array(
+			'form' => $form->createView(),
+			'orders' => $panier,
+			));
+		}
 			
 		return $this->render('MUSEELouvreBundle:Mlouvre:ticket.html.twig', array(
             'form' => $form->createView(),
         ));										  
     }
    
-   public function ordersAction()
+    public function ordersAction()
     {
-			$session = $this->get('session');
-			if (!$session->has('orders')) 
-			{
-				throw $this->createNotFoundException("Aucune commande faite!");
-			}
+		$session = $this->get('session');
+		if (!$session->has('orders')) 
+		{
+			throw $this->createNotFoundException("Aucune commande faite!");
+		}
 			
-			$yourBill = $this->container->get('musee_louvre.bills');
-			$order = $session->get('orders');
-			$price = $yourBill->workout($order);
+		$yourBill = $this->container->get('musee_louvre.bills');
+		$order = $session->get('orders');
+		$price = $yourBill->workout($order);
 
-			return $this->render('MUSEELouvreBundle:Mlouvre:orders.html.twig', array(
-            'orders' => $order,
-            'price' => $price,
-             ));	
+		return $this->render('MUSEELouvreBundle:Mlouvre:orders.html.twig', array(
+        'orders' => $order,
+        'price' => $price,
+        ));	
     }
     	
-		
 	public function paymentAction()
     {
         if (!isset($_POST['stripeToken'])) 
@@ -129,7 +124,7 @@ class MlouvreController extends Controller
     }
 	  
 	  
-	 public function recapAction()
+	public function recapAction()
     {
         $session = $this->get('session');
 		
@@ -150,7 +145,7 @@ class MlouvreController extends Controller
     } 
 	 	  
 
-	 public function contactAction()
+	public function contactAction()
 	{
 		$content = $this->get('templating')->render('MUSEELouvreBundle:Mlouvre:contact.html.twig');
 		return new Response($content);

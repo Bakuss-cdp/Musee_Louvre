@@ -49,24 +49,23 @@ class OrdersManager
         
 		$available = self::MAX_PLACES - $numberTicketsSold;
 			
-			if($available >= $ticketsNumber)
-			{
-			 //
-			  $laDate = $order->getVisitDate();  
-			  $datedeVisite = date_format($laDate, 'd-m-Y');
-			  $order->setVisitDate(new \DateTime($datedeVisite));
+		if($available >= $ticketsNumber)
+		{
+			$laDate = $order->getVisitDate();  
+			$datedeVisite = date_format($laDate, 'd-m-Y');
+			$order->setVisitDate(new \DateTime($datedeVisite));
 			
 			$this->session->set('orders', $order);
 
-			 $this->session->getFlashBag()->add('Info','Le Nombre de places restant pour le: ' . $datedeVisite . ' est '. $available . '.');
-			}
+			$this->session->getFlashBag()->add('Info','Le Nombre de places restant pour le: ' . $datedeVisite . ' est '. $available . '.');
+		}
 			
-			else
-			{
-				$ticket = $order->getTicket()->last();
-				$order->removeTicket($ticket);
-				$this->session->getFlashBag()->add('Info!:',' Vous devez enlever le dernier visiteur pour la date du: ' . $datedeVisite . '.');				
-			}	
+		else
+		{
+			$ticket = $order->getTicket()->last();
+			$order->removeTicket($ticket);
+			$this->session->getFlashBag()->add('Info!:',' Vous devez enlever le dernier visiteur pour la date du: ' . $datedeVisite . '.');				
+		}	
     }
 	
 }

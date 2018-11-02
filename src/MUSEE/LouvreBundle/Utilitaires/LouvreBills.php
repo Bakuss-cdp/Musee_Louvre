@@ -29,12 +29,12 @@ class LouvreBills
                 $price['ticket'.$number] = 16;
                 $total += 16;
             }
-			elseif (intval($ageinYears) <= 4) 
+			elseif(intval($ageinYears) <= 4) 
 			{
                 $price['ticket'.$number] = 0;
                 $total += 0;
             }
-			elseif ($ticket->getReduction()) 
+			elseif($ticket->getReduction()) 
 			{
                 $price['ticket'.$number] = 10;
                 $total += 10;
@@ -53,26 +53,23 @@ class LouvreBills
 
         $price['total'] = $total;
 		
-	//
 		$ladatevisite  = $order->getVisitDate();
-		
 		$cettevisitdate = date("Y-m-d", strtotime('$order->getVisitDate()'));
-		
 		$cettedate = new \DateTime($cettevisitdate);
 
         $ageGap = $dateofOrder->diff($cettedate);		
 
-		
         if ($ageGap->format('%Y') == 0 && $ageGap->format('%m') == 0 && $ageGap->format('%d') == 0 && $ageGap->format('%R%h') <= -12) 
 		{
             $typeReservation = true;
             $order->setTypeReservation($typeReservation);
-        }else {
+        }
+		else 
+		{
             $typeReservation = false;
             $order->setTypeReservation($typeReservation);
         }
-
-
+		
         return $price;
     }
 }

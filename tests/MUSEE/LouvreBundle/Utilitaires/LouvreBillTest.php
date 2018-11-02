@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 
   class LouvreBillsTest extends TestCase
-//class LouvreBillsTest extends WebTestCase
 {  
     public function testPrices()
     {

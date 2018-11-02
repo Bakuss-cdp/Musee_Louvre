@@ -322,17 +322,15 @@ class Orders
      * Le billet journée ne peut pas être payé après 14H00
      * @Assert\Callback
      */
-	// 
     public function validate(ExecutionContextInterface $context)
     {
         $today = new \DateTime("now");
         $time = $today->format('H');
         $today->setTime(0, 0, 0);
-			if( $this->getVisitDate() == $today && $time >=12 && $this->getTypeReservation() == 'Journée')
-			{
-				$context->buildViolation('Le billet journée ne peut pas être commandé aprés 14H00')
+		if( $this->getVisitDate() == $today && $time >=12 && $this->getTypeReservation() == 'Journée')
+		{
+			$context->buildViolation('Le billet journée ne peut pas être commandé aprés 14H00')
 					->addViolation();
-			}
+		}
     }
-	//
 }
